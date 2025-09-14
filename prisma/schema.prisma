@@ -15,7 +15,7 @@ datasource db {
 
 model Hero {
   id                 Int         @id @default(autoincrement())
-  nickname           String
+  nickname           String       @unique()
   real_name          String
   origin_description String
   superpowers        String
@@ -29,7 +29,7 @@ model HeroImage {
   id      Int    @id @default(autoincrement())
   url     String
   heroId  Int
-  hero    Hero   @relation(fields: [heroId], references: [id])
+  hero    Hero   @relation(fields: [heroId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
 }

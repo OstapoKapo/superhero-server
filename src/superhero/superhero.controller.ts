@@ -1,7 +1,10 @@
-import { Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, Query, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SuperheroService } from './superhero.service';
 import { ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { CreateHeroDto } from 'src/common/dto/create-change.dto';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { memoryStorage } from 'multer';
 @ApiTags('heroes')
 @Controller('heroes')
 export class SuperheroController {
@@ -70,8 +73,12 @@ export class SuperheroController {
             },
         },
     })
-    createHero() {
-        return this.superheroService.createHero();
+    @UseInterceptors(FilesInterceptor('images', 10, { storage: memoryStorage() }))
+    createHero(
+        @Body() dto: CreateHeroDto,
+        @UploadedFiles() files: Express.Multer.File[],
+    ) {
+        return this.superheroService.handleCreateHero(dto, files);
     }
 
     @Delete(':id')
@@ -88,6 +95,7 @@ export class SuperheroController {
 
     @Put(':id')
     @HttpCode(HttpStatus.OK)
+    @UseInterceptors(FilesInterceptor('images', 10, { storage: memoryStorage() }))
     @ApiOkResponse({
         description: 'Оновлення інформації про героя',
         schema: {
@@ -102,7 +110,13 @@ export class SuperheroController {
             },
         },
     })
-    updateHero(@Param('id', ParseIntPipe) id: number) {
-        return this.superheroService.updateHero(id);
-    }  
+    updateHero(
+        @Param('id', ParseIntPipe) id: number,
+        @UploadedFiles() files: Express.Multer.File[],
+        @Body() dto: CreateHeroDto,
+    ) {
+        console.log(files)
+        console.log(dto)
+        return this.superheroService.handleUpdateHero(id, files, dto);
+    }
 }

@@ -1,10 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { connect } from 'http2';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
+import { CreateHeroDto } from 'src/common/dto/create-change.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class SuperheroService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly cloudinaryService: CloudinaryService,  
+    ) {}
+
     async getAllHeroes({ page, perPage }: { page: number; perPage: number }) {
         const skip = (page - 1) * perPage;
 
@@ -33,36 +39,95 @@ export class SuperheroService {
         });
     }
 
-    async createHero() {
+    private async createHero(dto: CreateHeroDto, images: string[]) {
         return this.prisma.hero.create({
             data: {
-                nickname: 'NewHero',
-                real_name: 'New Real Name',
-                origin_description: 'New Origin Description',
-                superpowers: 'New Superpowers',
-                catch_phrase: 'New Catch Phrase',
+                nickname: dto.nickname,
+                real_name: dto.real_name,
+                origin_description: dto.origin_description,
+                superpowers: dto.superpowers,
+                catch_phrase: dto.catch_phrase,
+                images: {
+                    create: images.map((url) => ({ url })),
+                }
             },
-            include: { images: true },
         });
     }
 
-    async updateHero(id: number) {
-        return this.prisma.hero.update({
+    async handleCreateHero(dto: CreateHeroDto, files: Express.Multer.File[]) {
+        if (await this.heroExists(dto.nickname)) throw new ConflictException('Hero with this NickName already exists');
+        const urls = await this.cloudinaryService.uploadFiles(files);
+        return await this.createHero(dto, urls);
+    }
+
+    private async heroExists(nickname: string): Promise<boolean> {
+        const hero = await this.prisma.hero.findFirst({
+            where: { nickname: { equals: nickname.toLowerCase(), mode: 'insensitive' } },
+        });
+        return !!hero;
+    }
+
+    async handleUpdateHero(id: number, files: Express.Multer.File[], dto: CreateHeroDto) {
+        const hero = await this.getHeroById(id);
+
+        if (!hero) {
+            throw new NotFoundException(`Hero with id ${id} not found`);
+        }
+
+        const { existing, finalImages, uploadedUrls } = await this.checkHeroImages(files, dto);
+
+        hero.nickname = dto.nickname;
+        hero.real_name = dto.real_name;
+        hero.origin_description = dto.origin_description;
+        hero.superpowers = dto.superpowers;
+        hero.catch_phrase = dto.catch_phrase;
+
+
+        return await this.updateHero(uploadedUrls, finalImages, id, hero);
+
+    }
+
+    private async checkHeroImages(files: Express.Multer.File[], dto: CreateHeroDto) {
+        let uploadedUrls: string[] = [];
+        if (files && files.length > 0) {
+            uploadedUrls = await this.cloudinaryService.uploadFiles(files);
+        }
+
+       const existing = Array.isArray(dto.existingImages) ? dto.existingImages : dto.existingImages ? [dto.existingImages] : [];
+
+        const finalImages = [...existing, ...uploadedUrls];
+
+        return {existing, finalImages, uploadedUrls}
+    }
+
+    private async updateHero(uploadedUrls: string[], finalImages: string[], id: number, hero: CreateHeroDto) {
+         return await this.prisma.hero.update({
             where: { id },
             data: {
-                nickname: 'UpdatedHero',
-                real_name: 'Updated Real Name',
-                origin_description: 'Updated Origin Description',
-                superpowers: 'Updated Superpowers',
-                catch_phrase: 'Updated Catch Phrase',
+                nickname: hero.nickname,
+                real_name: hero.real_name,
+                origin_description: hero.origin_description,
+                superpowers: hero.superpowers,
+                catch_phrase: hero.catch_phrase,
+                images: {
+                    deleteMany: {
+                         url: { notIn: finalImages },
+                    },
+                    create: uploadedUrls.map((url) => ({ url })),
+                },
             },
-            include: { images: true },
+            include: {
+                images: true,
+            },
         });
+
     }
 
     async deleteHero(id: number) {
-        return this.prisma.hero.delete({
+        if(!await this.getHeroById(id)) throw new NotFoundException('Hero with this ID does not exist');
+        await this.prisma.hero.delete({
             where: { id },
         });
+        return id;
     }
 }
