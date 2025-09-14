@@ -3,6 +3,12 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+import { PrismaClientExceptionFilter } from './common/filter/prismaClientException.filter';
+import { HttpExceptionFilter } from './common/filter/httpException.filter';
+
+dotenv.config({path: '.env.development'})
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +23,10 @@ async function bootstrap() {
   });
 
   app.useGlobalPipes(new ValidationPipe());
+
+  app.useGlobalFilters(
+    new HttpExceptionFilter()
+  );
 
   const config = new DocumentBuilder()
     .setTitle('superhero app API')
