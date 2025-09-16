@@ -1,99 +1,410 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+<div align="left" style="position: relative;">
+<img src="https://img.icons8.com/?size=512&id=55494&format=png" align="right" width="30%" style="margin: -20px 0 0 20px;">
+<h1>SUPERHERO-SERVER</h1>
+<p align="left">
+	<img src="https://img.shields.io/github/license/OstapoKapo/superhero-server?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/OstapoKapo/superhero-server?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/OstapoKapo/superhero-server?style=default&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/OstapoKapo/superhero-server?style=default&color=0080ff" alt="repo-language-count">
 </p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+<p align="left"><!-- default option, no dependency badges. -->
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+<p align="left">
+	<!-- default option, no dependency badges. -->
+</p>
+</div>
+<br clear="right">
 
-## Description
+##  Table of Contents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [ Overview](#-overview)
+- [ Features](#-features)
+- [ Project Structure](#-project-structure)
+  - [ Project Index](#-project-index)
+- [ Getting Started](#-getting-started)
+  - [ Prerequisites](#-prerequisites)
+  - [ Installation](#-installation)
+  - [ Usage](#-usage)
+  - [ Testing](#-testing)
+- [ Contributing](#-contributing)
 
-## Project setup
 
-```bash
-$ npm install
+---
+##  Features
+
+**NestJS Framework** – modular architecture, dependency injection, and scalability out of the box.  
+- **Prisma ORM** – type-safe database client for PostgreSQL, easy schema migrations and queries.  
+- **PostgreSQL Database** – reliable relational database with support for complex queries and relations.  
+- **REST API Endpoints** – CRUD operations for heroes (create, read, update, delete).  
+- **DTO & Validation** – strict data transfer objects with validation using `class-validator`.  
+- **Error Handling** – global exception filters for consistent API error responses.  
+- **Environment Configuration** – `.env` file support for database credentials and secrets.  
+- **Code-first Structure** – clear separation into modules, services, and controllers.  
+- **Scalability Ready** – easy to extend with additional entities (e.g., powers, teams)
+
+---
+
+##  Project Structure
+
+```sh
+└── superhero-server/
+    ├── Dockerfile
+    ├── README.md
+    ├── config
+    │   └── cloudinary.config.ts
+    ├── eslint.config.mjs
+    ├── nest-cli.json
+    ├── package-lock.json
+    ├── package.json
+    ├── prisma
+    │   ├── migrations
+    │   └── schema.prisma
+    ├── src
+    │   ├── app.controller.ts
+    │   ├── app.module.ts
+    │   ├── app.service.ts
+    │   ├── cloudinary
+    │   ├── common
+    │   ├── main.ts
+    │   ├── prisma
+    │   └── superhero
+    ├── test
+    │   ├── cloudinary
+    │   ├── jest-e2e.json
+    │   └── superhero
+    ├── tsconfig.build.json
+    └── tsconfig.json
 ```
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
+###  Project Index
+<details open>
+	<summary><b><code>SUPERHERO-SERVER/</code></b></summary>
+	<details> <!-- __root__ Submodule -->
+		<summary><b>__root__</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/package-lock.json'>package-lock.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/tsconfig.json'>tsconfig.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/eslint.config.mjs'>eslint.config.mjs</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/tsconfig.build.json'>tsconfig.build.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/nest-cli.json'>nest-cli.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/package.json'>package.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/Dockerfile'>Dockerfile</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+		</blockquote>
+	</details>
+	<details> <!-- src Submodule -->
+		<summary><b>src</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/app.controller.ts'>app.controller.ts</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/app.module.ts'>app.module.ts</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/app.service.ts'>app.service.ts</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/main.ts'>main.ts</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>prisma</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/prisma/prisma.module.ts'>prisma.module.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/prisma/prisma.service.ts'>prisma.service.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>superhero</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/superhero/superhero.module.ts'>superhero.module.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/superhero/superhero.controller.ts'>superhero.controller.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/superhero/superhero.service.ts'>superhero.service.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>common</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>dto</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/common/dto/create-change.dto.ts'>create-change.dto.ts</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>middleware</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/common/middleware/corellation-id.middleware.ts'>corellation-id.middleware.ts</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>filter</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/common/filter/httpException.filter.ts'>httpException.filter.ts</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/common/filter/prismaClientException.filter.ts'>prismaClientException.filter.ts</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>cloudinary</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/cloudinary/cloudinary.module.ts'>cloudinary.module.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/src/cloudinary/cloudinary.service.ts'>cloudinary.service.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+	<details> <!-- prisma Submodule -->
+		<summary><b>prisma</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/prisma/schema.prisma'>schema.prisma</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>migrations</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/prisma/migrations/migration_lock.toml'>migration_lock.toml</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+					<details>
+						<summary><b>20250912024812_init</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/prisma/migrations/20250912024812_init/migration.sql'>migration.sql</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>20250914022512_change_on_delete</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/prisma/migrations/20250914022512_change_on_delete/migration.sql'>migration.sql</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>20250913235446_add_unqiue_to_nickname</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/prisma/migrations/20250913235446_add_unqiue_to_nickname/migration.sql'>migration.sql</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+	<details> <!-- config Submodule -->
+		<summary><b>config</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/config/cloudinary.config.ts'>cloudinary.config.ts</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+		</blockquote>
+	</details>
+	<details> <!-- test Submodule -->
+		<summary><b>test</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/test/jest-e2e.json'>jest-e2e.json</a></b></td>
+				<td><code>❯ REPLACE-ME</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>superhero</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/test/superhero/superhero.service.spec.ts'>superhero.service.spec.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>cloudinary</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/OstapoKapo/superhero-server/blob/master/test/cloudinary/cloudinary.service.spec.ts'>cloudinary.service.spec.ts</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+</details>
 
-# watch mode
-$ npm run start:dev
+---
+##  Getting Started
 
-# production mode
-$ npm run start:prod
+###  Prerequisites
+
+Before getting started with superhero-server, ensure your runtime environment meets the following requirements:
+
+- **Programming Language:** TypeScript
+- **Package Manager:** Npm
+- **Container Runtime:** Docker
+
+
+###  Installation
+
+Install superhero-server using one of the following methods:
+
+**Build from source:**
+
+1. Clone the superhero-server repository:
+```sh
+❯ git clone https://github.com/OstapoKapo/superhero-server
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+2. Navigate to the project directory:
+```sh
+❯ cd superhero-server
 ```
 
-## Deployment
+3. Install the project dependencies:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```sh
+❯ npm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-## Resources
+**Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
 
-Check out a few resources that may come in handy when working with NestJS:
+```sh
+❯ docker build -t OstapoKapo/superhero-server .
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+###  Usage
+Run superhero-server using the following command:
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+❯ npm start
+```
 
-## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-# superhero-server
+**Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+❯ docker run -it {image_name}
+```
+
+
+###  Testing
+Run the test suite using the following command:
+**Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
+
+```sh
+❯ npm test
+```
+
+
+---
+
+##  Contributing
+
+Сontributions, issues, and feature requests are welcome!  
+Feel free to check the [issues page](https://github.com/OstapoKapo/superhero-server/issues).
